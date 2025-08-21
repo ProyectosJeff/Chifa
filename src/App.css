@@ -1,0 +1,201 @@
+/* --- Reset y layout base --- */
+/* Fondo oriental */
+/* Fondo cálido oriental */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: url("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/b5/62/14/madam-tusan.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #b71c1c, #f57c00);
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.header img {
+  width: 50px;
+  margin-right: 10px;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+}
+.header nav button {
+  margin: 0 10px;
+  padding: 10px 18px;
+  border: none;
+  background: #ffca28;
+  color: #000;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.header nav button:hover {
+  background: #ffd54f;
+  transform: scale(1.05);
+}
+
+/* Carta */
+.carta {
+  padding: 40px;
+  text-align: center;
+}
+.platos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+.plato-card {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+.plato-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+.plato-card img {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.plato-card button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #ffca28;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.plato-card button:hover {
+  background: #ffd54f;
+}
+
+/* Carrito */
+.carrito {
+  position: fixed;
+  right: 10px;
+  top: 100px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 12px;
+  width: 260px;
+}
+.carrito button {
+  margin-left: 8px;
+  background: #e53935;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Formularios de Reserva y Contacto */
+.reserva, .contacto {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.reserva h2, .contacto h2 {
+  margin-bottom: 15px;
+  color: #8b0000;
+}
+
+.reserva-form, .contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reserva-form input, 
+.contacto-form input, 
+.contacto-form textarea {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+}
+
+.reserva-form button, .contacto-form button {
+  background: #b22222;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.reserva-form button:hover, .contacto-form button:hover {
+  background: #ff4444;
+}
+
+/* Mapa */
+.mapa {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 1s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+  .carrito {
+    position: static;
+    width: 90%;
+    margin: 20px auto;
+  }
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(to right, #8b0000, #b22222);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.footer-info {
+  margin-bottom: 15px;
+}
+
+.footer-logo {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 10px;
+  font-size: 14px;
+}
