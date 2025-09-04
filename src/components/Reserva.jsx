@@ -1,70 +1,91 @@
 /**
- * Formulario de reservas.
- * - Simula validación mínima y presentación de datos (no envía al servidor).
+ * Reserva – formulario profesional con foco automático, stepper de personas,
+ * validación básica y confirmación elegante.
  */
-// Reserva.jsx
-// Formulario para realizar reservas
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-function Reserva() {
-  const [reserva, setReserva] = useState({
+export default function Reserva() {
+  const [form, setForm] = useState({
     nombre: "",
+    telefono: "",
     fecha: "",
     hora: "",
-    personas: 1,
+    personas: 2,
   });
+  const [ok, setOk] = useState(false);
+  const nombreRef = useRef(null);
 
-  const handleChange = (e) => {
-    setReserva({ ...reserva, [e.target.name]: e.target.value });
-  };
+  // foco en "Nombre" al entrar
+  useEffect(() => { nombreRef.current?.focus(); }, []);
 
-  const handleSubmit = (e) => {
+  // fecha mínima hoy
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, "0");
+  const dd = String(hoy.getDate()).padStart(2, "0");
+  const minDate = `${yyyy}-${mm}-${dd}`;
+
+  const onChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+  const inc = () => setForm((p) => ({ ...p, personas: Math.min(20, Number(p.personas) + 1) }));
+  const dec = () => setForm((p) => ({ ...p, personas: Math.max(1, Number(p.personas) - 1) }));
+
+  const submit = (e) => {
     e.preventDefault();
-    alert(
-      `Reserva realizada:\nNombre: ${reserva.nombre}\nFecha: ${reserva.fecha}\nHora: ${reserva.hora}\nPersonas: ${reserva.personas}`
-    );
+    if (!form.nombre || !form.telefono || !form.fecha || !form.hora) return;
+    setOk(true);
   };
 
   return (
-    <section className="reserva">
-      <h2>Haz tu Reserva</h2>
-      <form onSubmit={handleSubmit} className="reserva-form">
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Tu Nombre"
-          value={reserva.nombre}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="date"
-          name="fecha"
-          value={reserva.fecha}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="time"
-          name="hora"
-          value={reserva.hora}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="personas"
-          min="1"
-          value={reserva.personas}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Confirmar Reserva</button>
-      </form>
+    <section className="reserva fade-in">
+      <h2>Hacer reserva</h2>
+
+      {!ok ? (
+        <form onSubmit={submit}>
+          <div className="form-grid">
+            <label>
+              <span>Nombre</span>
+              <input ref={nombreRef} name="nombre" value={form.nombre} onChange={onChange} placeholder="Tu nombre" required />
+            </label>
+
+            <label>
+              <span>Teléfono</span>
+              <input name="telefono" value={form.telefono} onChange={onChange} placeholder="999 999 999" required />
+            </label>
+
+            <label>
+              <span>Fecha</span>
+              <input type="date" name="fecha" value={form.fecha} onChange={onChange} min={minDate} required />
+            </label>
+
+            <label>
+              <span>Hora</span>
+              <input type="time" name="hora" value={form.hora} onChange={onChange} required />
+            </label>
+
+            <label>
+              <span>Personas</span>
+              <div className="stepper">
+                <button type="button" onClick={dec}>−</button>
+                <input name="personas" value={form.personas} onChange={onChange} style={{width: 64, textAlign: "center"}} />
+                <button type="button" onClick={inc}>+</button>
+              </div>
+            </label>
+          </div>
+
+          <div className="actions">
+            <button className="btn ghost" type="reset" onClick={() => setForm({ nombre:"", telefono:"", fecha:"", hora:"", personas:2 })}>Limpiar</button>
+            <button className="btn" type="submit">Reservar</button>
+          </div>
+        </form>
+      ) : (
+        <div className="notice success">
+          <strong>¡Reserva confirmada!</strong><br />
+          {form.personas} personas el {form.fecha} a las {form.hora}.<br />
+          Te contactaremos al <strong>{form.telefono}</strong>.
+        </div>
+      )}
     </section>
   );
 }
-
-export default Reserva;
 
 
